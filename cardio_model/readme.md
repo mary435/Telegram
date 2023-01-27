@@ -1,1 +1,1 @@
-# Bot for Cardiovascular disease risk model 
+# Bot for cardiovascular disease risk model 
