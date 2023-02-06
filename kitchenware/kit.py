@@ -1,7 +1,7 @@
 from config import *
 import telebot
-from telebot.types import ReplyKeyboardMarkup #to create buttons
-from telebot.types import ForceReply #to answer the message
+#from telebot.types import ReplyKeyboardMarkup #to create buttons
+#from telebot.types import ForceReply #to answer the message
 from telebot.types import ReplyKeyboardRemove #to remove keypad
 import threading
 import requests
