@@ -1,8 +1,8 @@
 from config import *
 import telebot
-from telebot.types import ReplyKeyboardMarkup #para crear botones
-from telebot.types import ForceReply #para responder el mensaje
-from telebot.types import ReplyKeyboardRemove #para eliminar botonera
+from telebot.types import ReplyKeyboardMarkup #to create buttons
+from telebot.types import ForceReply #to answer the message
+from telebot.types import ReplyKeyboardRemove #to remove keypad
 import threading
 import requests
 from PIL import Image
@@ -12,27 +12,27 @@ from tensorflow.keras.applications.xception import preprocess_input
 
 MODEL = tf.keras.models.load_model('model/')
 
-#instancia del bot
+#bot instance
 bot = telebot.TeleBot(BOT_TOKEN)
 
 usuarios = {}
 
-#responde al comando start
-@bot.message_handler(commands=["start", "ayuda", "help"])
+#respond to start command
+@bot.message_handler(commands=["start", "help"])
 def cmd_start(message):
-    "Muestra los comandos disponibles"
+    "Show available commands"
     markup = ReplyKeyboardRemove()
 
-    intro = "Este modelo clasifica imágenes de diferentes utensilios de cocina en 6 clases:\n"
-    intro+= "*Tazas \n*Vasos \n*Platos \n*Cucharas \n*Tenedores \n*Cuchillos"
+    intro = "This model classifies images of different kitchen utensils into 6 classes:\n"
+    intro+= "*Cups \n*Glasses \n*Plates \n*Spoons \n*Forks \n*Knives"
     
     bot.send_message(message.chat.id, intro, reply_markup=markup)
-    bot.send_message(message.chat.id, "Envia una imagen para clasificar", reply_markup=markup)
+    bot.send_message(message.chat.id, "Upload an image to classify it.", reply_markup=markup)
 
-#responde a texto que no son comandos 
+#responds when not commands
 @bot.message_handler(content_types=["photo"])
 def bot_mensajes_texto(message):
-    "Gestiona los mensajes de fotos recibidos"
+    "Manage received picture messages"
     file_id = message.photo[-1].file_id
     # get URL by id
     file_path = requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/getFile?file_id={file_id}').json()['result']['file_path']
@@ -48,29 +48,28 @@ def bot_mensajes_texto(message):
     arr = preprocess_input(arr)
     prediction = MODEL.predict([arr])
 
-    clases = ["Taza", "Tenedor", "Vaso", "Cuchillo", "Plato", "Cuchara"]
+    clases = ["Cup", "Fork", "Glass", "Knive", "Plate", "Spoon"]
     result = dict(zip(prediction[0], clases))
     pred = result[max(result)]
-
+    response = f'In the photo there is a {pred}'
     markup = ReplyKeyboardRemove()
-    bot.send_message(message.chat.id, "Recibido", reply_markup=markup)
+    #bot.send_message(message.chat.id, "Received", reply_markup=markup)
 
-    bot.send_message(message.chat.id, pred, reply_markup=markup)
+    bot.send_message(message.chat.id, response, reply_markup=markup)
 
 
-#### Main
-def recibir_mensajes():
-    "Bucle infinito que comprueba si hay nuevos mensajes"
-    bot.infinity_polling() #repite infinitamente
+def receive_messages():
+    "Infinite loop checking for new messages"
+    bot.infinity_polling() #repeat infinitely
     
 ### MAIN ###
 if __name__ == '__main__':
     bot.set_my_commands([
-        telebot.types.BotCommand("/start", "da la bienvenida"),
-        #telebot.types.BotCommand("/alta", "ingrese sus datos"),
-        ])      #Aca los agregamos para que aparezcan en el menu
+        telebot.types.BotCommand("/start", "give the welcome"),
+        #telebot.types.BotCommand("/", ""),
+        ])      #Here we add them so that they appear in the menu
 
-    print('Inicialdo el bot')
-    hilo_bot = threading.Thread(name="hilo_bot", target=recibir_mensajes) #hilo que recibe mensajes y continua la ejecucion
+    print('Initializing the bot')
+    hilo_bot = threading.Thread(name="hilo_bot", target=receive_messages) #thread that receives messages and continues execution
     hilo_bot.start()
-    print("Bot iniciado")
+    print("Bot started")
