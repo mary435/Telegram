@@ -1,0 +1,7 @@
+chardet
+telebot
+requests
+pillow
+tensorflow
+numpy
+pytelegrambotapi

@@ -1,9 +1,7 @@
 config.py
-save.py
 *.h5
 *.pyc
 dockerfile
-*.txt
 /model
 
 

@@ -1,4 +1,4 @@
-from config import *
+from config import * #for API Token
 import telebot
 #from telebot.types import ReplyKeyboardMarkup #to create buttons
 #from telebot.types import ForceReply #to answer the message
@@ -10,12 +10,11 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.keras.applications.xception import preprocess_input
 
+#Load model
 MODEL = tf.keras.models.load_model('model/')
 
 #bot instance
 bot = telebot.TeleBot(BOT_TOKEN)
-
-usuarios = {}
 
 #respond to start command
 @bot.message_handler(commands=["start", "help"])
