@@ -6,7 +6,8 @@ You can see the development of my solution [here](https://github.com/mary435/kit
 
 Now we are going to implement another solution through a telegram bot, we will be using the telebot library. This library offers a convenient way to communicate with the Telegram Bot API, enabling us to construct bots with ease.
 
-Once our Telegram bot is functioning as desired, we can deploy it on AWS Lambda, a serverless computing platform, so it can run in the cloud.
+
+
 
 
 The first step is to install the library using pip
