@@ -2,9 +2,7 @@
 
 This project starts with the model that was trained for the competition organized in Kaggle by [DataTalks.Club](https://www.kaggle.com/competitions/kitchenware-classification/overview).
 
-You can see the development of my solution [here](https://github.com/mary435/kitchenware_classification.git). 
-
-And this is the invitation link to the telegram app to test the model: [Telegram Kitchenware Classification](https://t.me/MaryPython_bot)
+You can see the development of my solution [here](https://github.com/mary435/kitchenware_classification.git).
 
 But if you want to develop your own bot, I'll explain the steps I followed in mine.
 
