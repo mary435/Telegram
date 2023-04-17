@@ -337,7 +337,7 @@ def procesar_datos(message):
     }
 
     ## Load the model
-    input_file = 'model_xgb_new.bin'
+    input_file = 'model.bin'
 
     with open(input_file, 'rb') as f_in: 
         dv, model = pickle.load(f_in)
