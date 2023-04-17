@@ -10,7 +10,7 @@ Now we install the necessary libraries in the environment that you prefer conda 
 pip install -r request.txt
 ```
 
-Nexy you just have to download the [model](model.bin).
+Next you just have to download the [model](model.bin).
 
 And run the python file chosen according to the language, for example:
 ```python cardio_en.py```
